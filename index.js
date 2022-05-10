@@ -43,17 +43,17 @@ drawBall();
 createLeftScore();
 createRightScore();
 // Left Score
-function createLeftScore(){
+function createLeftScore(score){
     ctx.font = '50px Arial';
     ctx.fillStyle = "black";
-    ctx.fillText("0",canvas.width/4,canvas.height/5);
+    ctx.fillText(score,canvas.width/4,canvas.height/5);
 }
 
 // Right Score
-function createRightScore(){
+function createRightScore(score){
     ctx.font = '50px Arial';
     ctx.fillStyle = "black";
-    ctx.fillText("0",canvas.width - canvas.width/4,canvas.height/5);
+    ctx.fillText(score,canvas.width - canvas.width/4,canvas.height/5);
 }
 
 document.addEventListener('keydown',function(event){
@@ -73,23 +73,43 @@ document.addEventListener('keydown',function(event){
     }
 })
 
+let leftScore = 0;
+let rightScore = 0;
 function playGame(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    if(ball.x <= ball.radius || ball.x >= canvas.width - ball.radius){
-        ball.dx = -ball.dx;
+    // HORIZONTAL BOUNDARIES
+    if(ball.x <= ball.radius){
+        ball.x = canvas.width/2;
+        ball.y = canvas.height/2;
+        rightScore++;   //updating score
     }
+    if(ball.x >= canvas.width - ball.radius){
+        ball.x = canvas.width/2;
+        ball.y = canvas.height/2;
+        leftScore++;    //updating score
+    }
+
+    // VERTICAL BOUNDARIES
     if(ball.y <= ball.radius || ball.y >= canvas.height - ball.radius){
         ball.dy = -ball.dy;
     }
 
+    //HIT LEFT PADDLE
+    if(ball.x - ball.radius <= p1.x + p1.width && ball.y >= p1.y && ball.y <= p1.y + p1.height) {
+        ball.dx = -ball.dx;
+    }
+    
+    //HIT RIGHT PADDLE
+    if(ball.x + ball.radius >= p2.x && ball.y >= p2.y && ball.y <= p2.y + p2.height) {
+        ball.dx = -ball.dx;
+    }
     ball.x += ball.dx;
     ball.y += ball.dy;
     drawBall();
     drawP1();
     drawP2();
-    createLeftScore();
-    createRightScore();
+    createLeftScore(leftScore);
+    createRightScore(rightScore);
     requestAnimationFrame(playGame);
 }
 playGame();
