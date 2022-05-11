@@ -56,6 +56,9 @@ function createRightScore(score){
     ctx.fillText(score,canvas.width - canvas.width/4,canvas.height/5);
 }
 
+var gameStatus = "playing";
+
+//Event Listeners
 document.addEventListener('keydown',function(event){
     // FOR LEFT PLAYER
     if(event.key === 'w'){
@@ -71,22 +74,53 @@ document.addEventListener('keydown',function(event){
     if(event.key === 'ArrowDown'){
         if(p2.y <= canvas.height-p2.height-5) p2.y += p2.speed;
     }
+    if(event.key === 'Enter'){
+        if(gameStatus === 'paused'){
+            gameStatus = 'playing';
+            playGame();
+        }
+    }
 })
 
 let leftScore = 0;
 let rightScore = 0;
+
 function playGame(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    // HORIZONTAL BOUNDARIES
+    // HORIZONTAL BOUNDARIES (Restart game)
     if(ball.x <= ball.radius){
+        window.cancelAnimationFrame(gameId);
         ball.x = canvas.width/2;
         ball.y = canvas.height/2;
+        p1.x = 5;
+        p1.y = (canvas.height/2) - 50;
+        p2.x = canvas.width - 25;
+        p2.y = (canvas.height/2) - 50;
         rightScore++;   //updating score
+        gameStatus = "paused";
+        drawBall();
+        drawP1();
+        drawP2();
+        createLeftScore(leftScore);
+        createRightScore(rightScore);
+        return;
     }
     if(ball.x >= canvas.width - ball.radius){
+        window.cancelAnimationFrame(gameId);
         ball.x = canvas.width/2;
         ball.y = canvas.height/2;
+        p1.x = 5;
+        p1.y = (canvas.height/2) - 50;
+        p2.x = canvas.width - 25;
+        p2.y = (canvas.height/2) - 50;
         leftScore++;    //updating score
+        gameStatus = "paused";
+        drawBall();
+        drawP1();
+        drawP2();
+        createLeftScore(leftScore);
+        createRightScore(rightScore);
+        return;
     }
 
     // VERTICAL BOUNDARIES
@@ -110,6 +144,6 @@ function playGame(){
     drawP2();
     createLeftScore(leftScore);
     createRightScore(rightScore);
-    requestAnimationFrame(playGame);
+    var gameId = window.requestAnimationFrame(playGame);
 }
 playGame();
