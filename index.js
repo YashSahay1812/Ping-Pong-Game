@@ -1,5 +1,14 @@
+// CANVAS SELECTORS
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+
+// MENU SELECTORS
+const menu = document.getElementById('menu');
+const p1Score = document.getElementById('p1Score');
+const p2Score = document.getElementById('p2Score');
+const resume = document.getElementById('resume');
+const restart = document.getElementById('restart');
+
 let ball = {
     x : canvas.width / 2,
     y : canvas.height / 2,
@@ -80,10 +89,24 @@ document.addEventListener('keydown',function(event){
             playGame();
         }
     }
+});
+resume.addEventListener('click',function(){
+    canvas.style.display = "block";
+    menu.style.display = "none";
+});
+restart.addEventListener('click',function(){
+    canvas.style.display = "block";
+    menu.style.display = "none";
+    leftScore = 0;
+    rightScore = 0;
+    if(gameStatus === 'paused'){
+        gameStatus = 'playing';
+        playGame();
+    }
 })
 
-let leftScore = 0;
-let rightScore = 0;
+var leftScore = 0;
+var rightScore = 0;
 
 function playGame(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -97,12 +120,15 @@ function playGame(){
         p2.x = canvas.width - 25;
         p2.y = (canvas.height/2) - 50;
         rightScore++;   //updating score
+        p2Score.innerText = rightScore;
         gameStatus = "paused";
         drawBall();
         drawP1();
         drawP2();
         createLeftScore(leftScore);
         createRightScore(rightScore);
+        canvas.style.display = "none";
+        menu.style.display = "flex";
         return;
     }
     if(ball.x >= canvas.width - ball.radius){
@@ -114,12 +140,15 @@ function playGame(){
         p2.x = canvas.width - 25;
         p2.y = (canvas.height/2) - 50;
         leftScore++;    //updating score
+        p1Score.innerText = leftScore;        
         gameStatus = "paused";
         drawBall();
         drawP1();
         drawP2();
         createLeftScore(leftScore);
         createRightScore(rightScore);
+        canvas.style.display = "none";
+        menu.style.display = "flex";
         return;
     }
 
