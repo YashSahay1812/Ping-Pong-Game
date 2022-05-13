@@ -10,7 +10,7 @@ const resume = document.getElementById('resume');
 const restart = document.getElementById('restart');
 
 // GLOBAL VARIABLES (Used at many places)
-let gameStatus = "playing";
+let gameStatus = "paused";
 let leftScore = 0;
 let rightScore = 0;
 
@@ -71,8 +71,8 @@ function createRightScore(score){
     ctx.fillText(score,canvas.width - canvas.width/4,canvas.height/5);
 }
 // CREATING SCORE
-createLeftScore();
-createRightScore();
+createLeftScore(leftScore);
+createRightScore(rightScore);
 
 //Event Listeners
     //EVENT-LISTENERS FOR KEYS
@@ -103,20 +103,40 @@ createRightScore();
     resume.addEventListener('click',function(){
         canvas.style.display = "block";
         menu.style.display = "none";
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        createLeftScore(leftScore);
+        createRightScore(rightScore);
+        resetObjects();
     });
     //EVENT-LISTENER FOR RESTART BUTTON
     restart.addEventListener('click',function(){
         canvas.style.display = "block";
         menu.style.display = "none";
-        leftScore = 0;
-        rightScore = 0;
-        p1Score.innerText = '0';
-        p2Score.innerText = '0';
-        if(gameStatus === 'paused'){
-            gameStatus = 'playing';
-            playGame();
-        }
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        resetObjects();
+        resetScore();
     })
+
+//RESETS EVERYTHING TO IT'S INITIAL STATE    
+function resetObjects(){
+    ball.x = canvas.width/2;
+    ball.y = canvas.height/2;
+    p1.x = 5;
+    p1.y = (canvas.height/2) - 50;
+    p2.x = canvas.width - 25;
+    p2.y = (canvas.height/2) - 50;
+    drawBall();
+    drawP1();
+    drawP2();
+}
+function resetScore(){
+    leftScore = 0;
+    rightScore = 0;
+    p1Score.innerText = '0';
+    p2Score.innerText = '0';
+    createLeftScore(leftScore);
+    createRightScore(rightScore);
+}
 
 //MAIN GAMING FUNCTION 
 function playGame(){
@@ -124,40 +144,20 @@ function playGame(){
     // HORIZONTAL BOUNDARIES (Restart game)
     if(ball.x <= ball.radius){
         window.cancelAnimationFrame(gameId);
-        ball.x = canvas.width/2;
-        ball.y = canvas.height/2;
-        p1.x = 5;
-        p1.y = (canvas.height/2) - 50;
-        p2.x = canvas.width - 25;
-        p2.y = (canvas.height/2) - 50;
+        gameStatus = "paused";
         rightScore++;   //updating score
         p2Score.innerText = rightScore;
-        gameStatus = "paused";
-        drawBall();
-        drawP1();
-        drawP2();
-        createLeftScore(leftScore);
-        createRightScore(rightScore);
+        //Opening menuBox
         canvas.style.display = "none";
         menu.style.display = "flex";
         return;
     }
     if(ball.x >= canvas.width - ball.radius){
         window.cancelAnimationFrame(gameId);
-        ball.x = canvas.width/2;
-        ball.y = canvas.height/2;
-        p1.x = 5;
-        p1.y = (canvas.height/2) - 50;
-        p2.x = canvas.width - 25;
-        p2.y = (canvas.height/2) - 50;
-        leftScore++;    //updating score
-        p1Score.innerText = leftScore;        
         gameStatus = "paused";
-        drawBall();
-        drawP1();
-        drawP2();
-        createLeftScore(leftScore);
-        createRightScore(rightScore);
+        leftScore++;    //updating score
+        p1Score.innerText = leftScore;
+        //Opening menuBox
         canvas.style.display = "none";
         menu.style.display = "flex";
         return;
@@ -186,4 +186,3 @@ function playGame(){
     createRightScore(rightScore);
     var gameId = window.requestAnimationFrame(playGame);
 }
-playGame();
