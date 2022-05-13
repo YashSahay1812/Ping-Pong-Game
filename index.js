@@ -9,6 +9,12 @@ const p2Score = document.getElementById('p2Score');
 const resume = document.getElementById('resume');
 const restart = document.getElementById('restart');
 
+// GLOBAL VARIABLES (Used at many places)
+let gameStatus = "playing";
+let leftScore = 0;
+let rightScore = 0;
+
+// CREATING BALL
 let ball = {
     x : canvas.width / 2,
     y : canvas.height / 2,
@@ -16,6 +22,8 @@ let ball = {
     dx : 7,
     dy : 5
 }
+
+// TEMPLATE FOR PADDLES (Class)
 class Paddle {
     constructor(x,y){
         this.x = x;
@@ -26,6 +34,7 @@ class Paddle {
     }
 }
 
+//CREATING OBJECTS OF PADDLE CLASS
 let p1 = new Paddle(5,(canvas.height/2) - 50);
 let p2 = new Paddle(canvas.width - 25, (canvas.height/2) - 50);
 
@@ -48,9 +57,6 @@ drawP1();
 drawP2();
 drawBall();
 
-// CREATING SCORE
-createLeftScore();
-createRightScore();
 // Left Score
 function createLeftScore(score){
     ctx.font = '50px Arial';
@@ -64,50 +70,55 @@ function createRightScore(score){
     ctx.fillStyle = "black";
     ctx.fillText(score,canvas.width - canvas.width/4,canvas.height/5);
 }
-
-var gameStatus = "playing";
+// CREATING SCORE
+createLeftScore();
+createRightScore();
 
 //Event Listeners
-document.addEventListener('keydown',function(event){
-    // FOR LEFT PLAYER
-    if(event.key === 'w'){
-        if(p1.y >= 5) p1.y -= p1.speed;
-    }
-    if(event.key === 's'){
-        if(p1.y <= canvas.height-p1.height-5) p1.y += p1.speed;
-    }
-    // FOR RIGHT PLAYER
-    if(event.key === 'ArrowUp'){
-        if(p2.y >= 5) p2.y -= p2.speed;
-    }
-    if(event.key === 'ArrowDown'){
-        if(p2.y <= canvas.height-p2.height-5) p2.y += p2.speed;
-    }
-    if(event.key === 'Enter'){
+    //EVENT-LISTENERS FOR KEYS
+    document.addEventListener('keydown',function(event){
+        // FOR LEFT PLAYER
+        if(event.key === 'w'){
+            if(p1.y >= 5) p1.y -= p1.speed;
+        }
+        if(event.key === 's'){
+            if(p1.y <= canvas.height-p1.height-5) p1.y += p1.speed;
+        }
+        // FOR RIGHT PLAYER
+        if(event.key === 'ArrowUp'){
+            if(p2.y >= 5) p2.y -= p2.speed;
+        }
+        if(event.key === 'ArrowDown'){
+            if(p2.y <= canvas.height-p2.height-5) p2.y += p2.speed;
+        }
+        //NEEDS MODIFICATION (ISSUE : This action should not work while user is on menu) *********
+        if(event.key === 'Enter'){
+            if(gameStatus === 'paused'){
+                gameStatus = 'playing';
+                playGame();
+            }
+        }
+    });
+    //EVENT-LISTENER FOR RESUME BUTTON 
+    resume.addEventListener('click',function(){
+        canvas.style.display = "block";
+        menu.style.display = "none";
+    });
+    //EVENT-LISTENER FOR RESTART BUTTON
+    restart.addEventListener('click',function(){
+        canvas.style.display = "block";
+        menu.style.display = "none";
+        leftScore = 0;
+        rightScore = 0;
+        p1Score.innerText = '0';
+        p2Score.innerText = '0';
         if(gameStatus === 'paused'){
             gameStatus = 'playing';
             playGame();
         }
-    }
-});
-resume.addEventListener('click',function(){
-    canvas.style.display = "block";
-    menu.style.display = "none";
-});
-restart.addEventListener('click',function(){
-    canvas.style.display = "block";
-    menu.style.display = "none";
-    leftScore = 0;
-    rightScore = 0;
-    if(gameStatus === 'paused'){
-        gameStatus = 'playing';
-        playGame();
-    }
-})
+    })
 
-var leftScore = 0;
-var rightScore = 0;
-
+//MAIN GAMING FUNCTION 
 function playGame(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     // HORIZONTAL BOUNDARIES (Restart game)
