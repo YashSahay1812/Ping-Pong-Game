@@ -10,9 +10,15 @@ const resume = document.getElementById('resume');
 const restart = document.getElementById('restart');
 
 // GLOBAL VARIABLES (Used at many places)
-let gameStatus = "paused";
-let leftScore = 0;
-let rightScore = 0;
+
+    /*Total 3 gameStatus : Playing / Paused / Disabled
+    Playing : Game is currently running
+    Paused : Game is in paused state (Waiting for Enter key)
+    Disabled : Game is currently disabled (Event-listeners related to EnterKey will not call playGame()) (Waiting for Restart/Resume)
+    */
+    let gameStatus = "paused";
+    let leftScore = 0;
+    let rightScore = 0;
 
 // CREATING BALL
 let ball = {
@@ -75,7 +81,7 @@ createLeftScore(leftScore);
 createRightScore(rightScore);
 
 //Event Listeners
-    //EVENT-LISTENERS FOR KEYS
+    //EVENT-LISTENERS FOR KEYS (Game controls)
     document.addEventListener('keydown',function(event){
         // FOR LEFT PLAYER
         if(event.key === 'w'){
@@ -91,16 +97,18 @@ createRightScore(rightScore);
         if(event.key === 'ArrowDown'){
             if(p2.y <= canvas.height-p2.height-5) p2.y += p2.speed;
         }
-        //NEEDS MODIFICATION (ISSUE : This action should not work while user is on menu) *********
         if(event.key === 'Enter'){
+            console.log('PressedEnter');
             if(gameStatus === 'paused'){
                 gameStatus = 'playing';
                 playGame();
             }
         }
     });
+    
     //EVENT-LISTENER FOR RESUME BUTTON 
     resume.addEventListener('click',function(){
+        gameStatus = 'paused';
         canvas.style.display = "block";
         menu.style.display = "none";
         ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -110,6 +118,7 @@ createRightScore(rightScore);
     });
     //EVENT-LISTENER FOR RESTART BUTTON
     restart.addEventListener('click',function(){
+        gameStatus = 'paused';
         canvas.style.display = "block";
         menu.style.display = "none";
         ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -144,7 +153,7 @@ function playGame(){
     // HORIZONTAL BOUNDARIES (Restart game)
     if(ball.x <= ball.radius){
         window.cancelAnimationFrame(gameId);
-        gameStatus = "paused";
+        gameStatus = 'disabled';
         rightScore++;   //updating score
         p2Score.innerText = rightScore;
         //Opening menuBox
@@ -154,7 +163,7 @@ function playGame(){
     }
     if(ball.x >= canvas.width - ball.radius){
         window.cancelAnimationFrame(gameId);
-        gameStatus = "paused";
+        gameStatus = 'disabled';
         leftScore++;    //updating score
         p1Score.innerText = leftScore;
         //Opening menuBox
