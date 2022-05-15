@@ -1,11 +1,80 @@
+/* FORM */
+form{
+    height: 450px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 100px 600px;
+    background-color: rgb(237, 225, 210);
+}
+#logo{
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    left: 710px;
+    top: 60px;
+    box-shadow: 0 0 5px 5px lightgray;
+}
+header{
+    height: 75px;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: x-large;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+}
+#inputs{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 200px;
+    width: 250px;
+}
+input{
+    height: 45px;
+    width: 230px;
+    background-color: #efefef;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: large;
+}
+#inputs button{
+    height: 45px;
+    width: 230px;
+    background-color: #9c150c;
+    color: white;
+    font-size: large;
+    font-family: monospace;
+    font-weight: bold;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* CANVAS */
 #canvas{
     border: 1px solid black;
+    display: none;
 }
+
+/* MENU */
 #menu{
     height: 9cm;
     width: 7cm;
     border: 1px solid black;
-    display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
@@ -14,29 +83,33 @@
     top: 20%;
     display: none;
 }
-#scores{
-    height: 50%;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-}
-#controls{
-    height: 30%;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-}
-button{
-    cursor: pointer;
-    height: 0.75cm;
-    width: 2cm;
-    font-family: monospace;
-    font-weight: bold;
-    border-radius: 50px;
-    border: 0.5px solid black;
-    /* outline: none; */
-}
+    
+    /* SCORES */
+    #scores{
+        height: 50%;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    /* BUTTONS */
+    #buttons{
+        height: 30%;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+    #buttons > button{
+        cursor: pointer;
+        height: 0.75cm;
+        width: 2cm;
+        font-family: monospace;
+        font-weight: bold;
+        border-radius: 50px;
+        border: 0.5px solid black;
+        outline: none;
+    }
