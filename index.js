@@ -6,12 +6,12 @@ function moveToGame(){
     const form = document.getElementById('form');
     let name1 = document.querySelector('#name1 > input').value;
     let name2 = document.querySelector('#name2 > input').value;
-    form.style.display = 'none';
+    form.style.display = 'none'; //to switch from form window to canvas window
     
     // CANVAS SELECTORS
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    canvas.style.display = 'block';
+    canvas.style.display = 'block'; //to switch from form window to canvas window
     
     // MENU SELECTORS
     const menu = document.getElementById('menu');
@@ -62,17 +62,17 @@ function moveToGame(){
     
     // DRAWING PADDLES AND BALL
     function drawP1(){
-        ctx.fillStyle = "blue";
+        ctx.fillStyle = "#ede1d1";
         ctx.fillRect(p1.x,p1.y,p1.width,p1.height);
     }
     function drawP2(){
-        ctx.fillStyle = "blue";
+        ctx.fillStyle = "#ede1d1";
         ctx.fillRect(p2.x,p2.y,p2.width,p2.height);
     }
     function drawBall(){
         ctx.beginPath();
         ctx.arc(ball.x,ball.y,ball.radius,0,Math.PI*2,false);
-        ctx.fillStyle = "red";
+        ctx.fillStyle = "bisque";
         ctx.fill();
     }
     drawP1();
