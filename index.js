@@ -19,6 +19,7 @@ function moveToGame(){
     const p2Score = document.getElementById('p2Score');
     const resume = document.getElementById('resume');
     const restart = document.getElementById('restart');
+    const newGame = document.getElementById('newGame');
     const player1 = document.getElementById('player1');
     const player2 = document.getElementById('player2');
     
@@ -140,7 +141,12 @@ function moveToGame(){
             ctx.clearRect(0,0,canvas.width,canvas.height);
             resetObjects();
             resetScore();
+        });
+        //EVENT-LISTENER FOR NEWGAME BUTTON
+        newGame.addEventListener('click',function(){
+            location.reload(true);
         })
+
     
     //RESETS EVERYTHING TO IT'S INITIAL STATE    
     function resetObjects(){
