@@ -2,6 +2,9 @@ const playButton = document.querySelector('#play > button');
 playButton.addEventListener('click',moveToGame);
 
 function moveToGame(){
+    //GLOBAL SELECTORS
+    const container = document.getElementById('container');
+
     // FORM SELECTORS
     const form = document.getElementById('form');
     let name1 = document.querySelector('#name1 > input').value;
