@@ -18,14 +18,22 @@ function moveToGame(){
     
     // MENU SELECTORS
     const menu = document.getElementById('menu');
-    const p1Score = document.getElementById('p1Score');
-    const p2Score = document.getElementById('p2Score');
-    const resume = document.getElementById('resume');
-    const restart = document.getElementById('restart');
-    const newGame = document.getElementById('newGame');
-    const player1 = document.getElementById('player1');
-    const player2 = document.getElementById('player2');
+
+        //SCORES
+        const p1Score = document.getElementById('p1Score');
+        const p2Score = document.getElementById('p2Score');
+        const player1 = document.getElementById('player1');
+        const player2 = document.getElementById('player2');
     
+        //BUTTONS
+        const newGame = document.getElementById('newGame');
+        const resume = document.getElementById('resume');
+        const restart = document.getElementById('restart');
+    
+    // LEADERBOARDS SELECTORS
+    const leaderboard = document.getElementById('leaderBoard');
+    const leadersList = document.querySelector('#leaderBoard > table');
+
     player1.innerText = name1;
     player2.innerText = name2;
     
@@ -126,6 +134,10 @@ function moveToGame(){
             }
         });
         
+        //EVENT-LISTENER FOR NEWGAME BUTTON
+        newGame.addEventListener('click',function(){
+            location.reload(true);
+        })
         //EVENT-LISTENER FOR RESUME BUTTON 
         resume.addEventListener('click',function(){
             gameStatus = 'paused';
@@ -145,10 +157,6 @@ function moveToGame(){
             resetObjects();
             resetScore();
         });
-        //EVENT-LISTENER FOR NEWGAME BUTTON
-        newGame.addEventListener('click',function(){
-            location.reload(true);
-        })
 
     
     //RESETS EVERYTHING TO IT'S INITIAL STATE    
