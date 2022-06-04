@@ -28,76 +28,76 @@ body{
         opacity: 0.75;
     }
 
-    /* FORM */
-    #form{
-        position: relative;
-    }
-        /* LOGO */
-        #logo{
-            border-radius: 50%;
-            height: 100px;
-            width: 100px;
-            position: absolute;
-            left: 100px;
-            top: -50px;
-            box-shadow: 0 0 5px 5px lightgray;
+        /* FORM */
+        #form{
+            position: relative;
         }
-        form{
-            height: 450px;
-            width: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            align-items: center;
-            background-color: rgb(237, 225, 210);
-        }
-            /* HEADER */
-            header{
-                height: 75px;
-                width: 250px;
-                display: flex;
-                justify-content: center;
-                align-items: flex-end;
-                font-size: x-large;
-                font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-                font-weight: bold;
+            /* LOGO */
+            #logo{
+                border-radius: 50%;
+                height: 100px;
+                width: 100px;
+                position: absolute;
+                left: 100px;
+                top: -50px;
+                box-shadow: 0 0 5px 5px lightgray;
             }
-            /* INPUT FIELDS */
-            #inputs{
+            form{
+                height: 450px;
+                width: 300px;
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
+                justify-content: space-evenly;
                 align-items: center;
-                height: 200px;
-                width: 250px;
+                background-color: rgb(237, 225, 210);
             }
-            input{
-                height: 45px;
-                width: 230px;
-                background-color: #efefef;
-                outline: none;
-                border: none;
-                border-radius: 10px;
-                box-sizing: border-box;
-                padding: 10px;
-                text-align: center;
-                font-weight: bold;
-                font-family: monospace;
-                font-size: large;
-            }
-            #inputs button{
-                height: 45px;
-                width: 230px;
-                background-color: #9c150c;
-                color: white;
-                font-size: large;
-                font-family: monospace;
-                font-weight: bold;
-                outline: none;
-                border: none;
-                border-radius: 10px;
-                cursor: pointer;
-            }
+                /* HEADER */
+                header{
+                    height: 75px;
+                    width: 250px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: flex-end;
+                    font-size: x-large;
+                    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                    font-weight: bold;
+                }
+                /* INPUT FIELDS */
+                #inputs{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+                    height: 200px;
+                    width: 250px;
+                }
+                input{
+                    height: 45px;
+                    width: 230px;
+                    background-color: #efefef;
+                    outline: none;
+                    border: none;
+                    border-radius: 10px;
+                    box-sizing: border-box;
+                    padding: 10px;
+                    text-align: center;
+                    font-weight: bold;
+                    font-family: monospace;
+                    font-size: large;
+                }
+                #inputs button{
+                    height: 45px;
+                    width: 230px;
+                    background-color: #9c150c;
+                    color: white;
+                    font-size: large;
+                    font-family: monospace;
+                    font-weight: bold;
+                    outline: none;
+                    border: none;
+                    border-radius: 10px;
+                    cursor: pointer;
+                }
 
         /* CANVAS */
         #canvas{
@@ -196,7 +196,7 @@ body{
                     color: #9c150c;
                 }
 
-             /* CROSS-ICON */
+                /* CROSS-ICON */
             #close{
                 color: #9c160cf2;
                 position: absolute;

@@ -29,10 +29,12 @@ function moveToGame(){
         const newGame = document.getElementById('newGame');
         const resume = document.getElementById('resume');
         const restart = document.getElementById('restart');
+        const showScore = document.getElementById('showScore');
     
     // LEADERBOARDS SELECTORS
     const leaderboard = document.getElementById('leaderBoard');
     const leadersList = document.querySelector('#leaderBoard > table');
+    const closeButton = document.getElementById('close');
 
     player1.innerText = name1;
     player2.innerText = name2;
@@ -156,6 +158,16 @@ function moveToGame(){
             ctx.clearRect(0,0,canvas.width,canvas.height);
             resetObjects();
             resetScore();
+        });
+        //EVENT-LISTENER FOR SCORE BUTTON
+        showScore.addEventListener('click',function(){
+            menu.style.display = "none";
+            leaderboard.style.display = "block";
+        });
+        //EVENT-LISTENER FOR CROSS-BUTTON OF LEADERBOARD
+        closeButton.addEventListener('click',function(){
+            leaderboard.style.display = "none";
+            menu.style.display = "flex";
         });
 
     
