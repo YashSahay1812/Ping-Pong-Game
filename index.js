@@ -9,13 +9,16 @@ function moveToGame(){
     const form = document.getElementById('form');
     let name1 = document.querySelector('#name1 > input').value;
     let name2 = document.querySelector('#name2 > input').value;
-    form.style.display = 'none'; //to switch from form window to canvas window
+    let games = document.getElementById('games').value;
+    // form.style.display = 'none'; //to switch from form window to canvas window
     
     // CANVAS SELECTORS
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    canvas.style.display = 'block'; //to switch from form window to canvas window
+    // canvas.style.display = 'block'; //to switch from form window to canvas window
     
+    formValidation(name1,name2,games);
+
     // MENU SELECTORS
     const menu = document.getElementById('menu');
 
@@ -34,7 +37,14 @@ function moveToGame(){
     // LEADERBOARDS SELECTORS
     const leaderboard = document.getElementById('leaderBoard');
     const leadersList = document.querySelector('#leaderBoard > table');
-    const closeButton = document.getElementById('close');
+    const closeLeaderboard = document.getElementById('closeLeaderboard');
+
+    // WINNING-MESSAGE SELECTORS
+    const message = document.getElementById('Message');
+    const closeMessage = document.getElementById('closeMessage');
+    const winner = document.getElementById('winner');
+    const opponent = document.getElementById('opponent');
+    const scoreDiff = document.getElementById('diff');
 
     player1.innerText = name1;
     player2.innerText = name2;
@@ -142,6 +152,10 @@ function moveToGame(){
         })
         //EVENT-LISTENER FOR RESUME BUTTON 
         resume.addEventListener('click',function(){
+            if(leftScore + rightScore == games){
+                window.alert("This game has already ended. Please start a NEW GAME !");
+                return;
+            }
             gameStatus = 'paused';
             canvas.style.display = "block";
             menu.style.display = "none";
@@ -150,23 +164,34 @@ function moveToGame(){
             createRightScore(rightScore);
             resetObjects();
         });
+
+        //RESTART BUTTON IS NO MORE REQUIRED 
+        //SINCE NOW WE HAVE ADDED NEW FEATURE 
+        //WHERE USER WILL INPUT NO. OF GAMES IN THE START ONLY
+
         //EVENT-LISTENER FOR RESTART BUTTON
-        restart.addEventListener('click',function(){
-            gameStatus = 'paused';
-            canvas.style.display = "block";
-            menu.style.display = "none";
-            ctx.clearRect(0,0,canvas.width,canvas.height);
-            resetObjects();
-            resetScore();
-        });
+        // restart.addEventListener('click',function(){
+        //     gameStatus = 'paused';
+        //     canvas.style.display = "block";
+        //     menu.style.display = "none";
+        //     ctx.clearRect(0,0,canvas.width,canvas.height);
+        //     resetObjects();
+        //     resetScore();
+        // });
+        
         //EVENT-LISTENER FOR SCORE BUTTON
         showScore.addEventListener('click',function(){
             menu.style.display = "none";
             leaderboard.style.display = "block";
         });
         //EVENT-LISTENER FOR CROSS-BUTTON OF LEADERBOARD
-        closeButton.addEventListener('click',function(){
+        closeLeaderboard.addEventListener('click',function(){
             leaderboard.style.display = "none";
+            menu.style.display = "flex";
+        });
+        //EVENT-LISTENER FOR CROSS-BUTTON OF MESSAGE-BOX
+        closeMessage.addEventListener('click',function(){
+            message.style.display = "none";
             menu.style.display = "flex";
         });
 
@@ -183,14 +208,20 @@ function moveToGame(){
         drawP1();
         drawP2();
     }
-    function resetScore(){
-        leftScore = 0;
-        rightScore = 0;
-        p1Score.innerText = '0';
-        p2Score.innerText = '0';
-        createLeftScore(leftScore);
-        createRightScore(rightScore);
-    }
+
+    //THIS FUNCTION WAS USED IN RESTART BUTTON
+    //BUT SINCE WE HAVE REMOVED THE RESTART BUTTON
+    //THIS FUNCTION IS ALSO OF NO USE
+    //BUT STILL I AM KEEPING THIS FOR ANY FUTURE REFERENCE
+
+    // function resetScore(){
+    //     leftScore = 0;
+    //     rightScore = 0;
+    //     p1Score.innerText = '0';
+    //     p2Score.innerText = '0';
+    //     createLeftScore(leftScore);
+    //     createRightScore(rightScore);
+    // }
     
     //MAIN GAMING FUNCTION 
     function playGame(){
@@ -201,7 +232,23 @@ function moveToGame(){
             gameStatus = 'disabled';
             rightScore++;   //updating score
             p2Score.innerText = rightScore;
-            //Opening menuBox
+            //If game completed open Winning message
+            if(rightScore + leftScore == games){
+                canvas.style.display = "none";
+                if(leftScore > rightScore){
+                    winner.innerText = name1;
+                    opponent.innerText = name2;
+                    scoreDiff.innerText = leftScore - rightScore;
+                }
+                else{
+                    winner.innerText = name2;
+                    opponent.innerText = name1;
+                    scoreDiff.innerText = rightScore - leftScore;                    
+                }
+                message.style.display = "block";
+                return;
+            }
+            //Else opening menuBox
             canvas.style.display = "none";
             menu.style.display = "flex";
             return;
@@ -211,7 +258,23 @@ function moveToGame(){
             gameStatus = 'disabled';
             leftScore++;    //updating score
             p1Score.innerText = leftScore;
-            //Opening menuBox
+            //If game completed open Winning message
+            if(rightScore + leftScore == games){
+                canvas.style.display = "none";
+                if(leftScore > rightScore){
+                    winner.innerText = name1;
+                    opponent.innerText = name2;
+                    scoreDiff.innerText = leftScore - rightScore;
+                }
+                else{
+                    winner.innerText = name2;
+                    opponent.innerText = name1;
+                    scoreDiff.innerText = rightScore - leftScore;                    
+                }
+                message.style.display = "block";
+                return;
+            }
+            //Else opening menuBox
             canvas.style.display = "none";
             menu.style.display = "flex";
             return;
@@ -239,5 +302,21 @@ function moveToGame(){
         createLeftScore(leftScore);
         createRightScore(rightScore);
         var gameId = window.requestAnimationFrame(playGame);
+    }
+}
+
+function formValidation(name1,name2,games){
+    if(name1.length < 1 || name1.length > 16 || name2.length < 1 || name2.length > 16){
+        window.alert("Player's name must have 0 to 16 characters");
+    }
+    else if(games%2 == 0){
+        window.alert("Number of games should be odd to avoid ties");
+    }
+    else if(games > 25){
+        window.alert("Number of games must be in range of 1 to 25");
+    }
+    else{
+        form.style.display = "none";
+        canvas.style.display = "block";
     }
 }

@@ -212,13 +212,43 @@ body{
                     color: #9c150c;
                 }
 
-                /* CROSS-ICON */
-            #close{
+            /* CROSS-ICON */
+            #closeLeaderboard{
                 color: #9c160cf2;
                 position: absolute;
                 right: 15px;
                 top: 15px;
                 font-size: x-large;
+                z-index: 1;
+                cursor: pointer;
+            }
+
+        /* WINNING MESSAGE */
+        #Message{
+            display: none;
+            position: relative;
+            border: 5px solid #9c160cc2;
+            border-radius: 15px;
+            background-color: rgb(237, 225, 210);
+            padding: 25px;
+            max-width: 60vw;
+            color: #9c150c;
+        }
+
+            #Message > h1{
+                font-size: x-large;
+                font-family: sans-serif;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+            #Message > h1 > span{
+                color: blue;
+            }
+            #closeMessage{
+                color: #9c160cf2;
+                position: absolute;
+                right: 5px;
+                top: 5px;
                 z-index: 1;
                 cursor: pointer;
             }
