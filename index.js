@@ -10,16 +10,14 @@ function moveToGame(){
     let name1 = document.querySelector('#name1 > input').value;
     let name2 = document.querySelector('#name2 > input').value;
     let games = document.getElementById('games').value;
+    // form.style.display = 'none'; //to switch from form window to canvas window
     
     // CANVAS SELECTORS
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
+    // canvas.style.display = 'block'; //to switch from form window to canvas window
     
-    const validated = formValidation(name1,name2,games);
-    if(!validated) return;
-
-    form.style.display = 'none';    //to switch from form window to canvas window
-    canvas.style.display = 'block'; //to switch from form window to canvas window
+    formValidation(name1,name2,games);
 
     // MENU SELECTORS
     const menu = document.getElementById('menu');
@@ -154,8 +152,6 @@ function moveToGame(){
         })
         //EVENT-LISTENER FOR RESUME BUTTON 
         resume.addEventListener('click',function(){
-
-            //This if condition will disable the resume button once the game is over
             if(leftScore + rightScore == games){
                 window.alert("This game has already ended. Please start a NEW GAME !");
                 return;
@@ -167,7 +163,6 @@ function moveToGame(){
             createLeftScore(leftScore);
             createRightScore(rightScore);
             resetObjects();
-
         });
 
         //RESTART BUTTON IS NO MORE REQUIRED 
@@ -312,16 +307,16 @@ function moveToGame(){
 
 function formValidation(name1,name2,games){
     if(name1.length < 1 || name1.length > 16 || name2.length < 1 || name2.length > 16){
-        window.alert("Player's name must have 1 to 16 characters");
-        return false;
+        window.alert("Player's name must have 0 to 16 characters");
     }
     else if(games%2 == 0){
         window.alert("Number of games should be odd to avoid ties");
-        return false;
     }
     else if(games > 25){
         window.alert("Number of games must be in range of 1 to 25");
-        return false;
     }
-    return true;
+    else{
+        form.style.display = "none";
+        canvas.style.display = "block";
+    }
 }
