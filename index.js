@@ -10,16 +10,15 @@ function moveToGame(){
     let name1 = document.querySelector('#name1 > input').value;
     let name2 = document.querySelector('#name2 > input').value;
     let games = document.getElementById('games').value;
-    // form.style.display = 'none'; //to switch from form window to canvas window
     
     // CANVAS SELECTORS
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    // canvas.style.display = 'block'; //to switch from form window to canvas window
     
     const validated = formValidation(name1,name2,games);
     if(!validated) return;
 
+    //to switch from Form window to Canvas window
     form.style.display = 'none';
     canvas.style.display = 'block';
 
@@ -156,6 +155,8 @@ function moveToGame(){
         })
         //EVENT-LISTENER FOR RESUME BUTTON 
         resume.addEventListener('click',function(){
+
+            //To disable Resume button when game has over
             if(leftScore + rightScore == games){
                 window.alert("This game has already ended. Please start a NEW GAME !");
                 return;
@@ -167,6 +168,7 @@ function moveToGame(){
             createLeftScore(leftScore);
             createRightScore(rightScore);
             resetObjects();
+            
         });
 
         //RESTART BUTTON IS NO MORE REQUIRED 
