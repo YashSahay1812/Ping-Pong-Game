@@ -17,7 +17,11 @@ function moveToGame(){
     const ctx = canvas.getContext('2d');
     // canvas.style.display = 'block'; //to switch from form window to canvas window
     
-    formValidation(name1,name2,games);
+    const validated = formValidation(name1,name2,games);
+    if(!validated) return;
+
+    form.style.display = 'none';
+    canvas.style.display = 'block';
 
     // MENU SELECTORS
     const menu = document.getElementById('menu');
@@ -307,16 +311,16 @@ function moveToGame(){
 
 function formValidation(name1,name2,games){
     if(name1.length < 1 || name1.length > 16 || name2.length < 1 || name2.length > 16){
-        window.alert("Player's name must have 0 to 16 characters");
+        window.alert("Player's name must have 1 to 16 characters");
+        return false;
     }
     else if(games%2 == 0){
         window.alert("Number of games should be odd to avoid ties");
+        return false;
     }
     else if(games > 25){
         window.alert("Number of games must be in range of 1 to 25");
+        return false;
     }
-    else{
-        form.style.display = "none";
-        canvas.style.display = "block";
-    }
+    return true;
 }
