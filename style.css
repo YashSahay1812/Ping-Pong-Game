@@ -207,9 +207,11 @@ body{
                     padding: 10px;
                     font-family: monospace;
                     font-size: 1rem;
+                    font-weight: bold;
                 }
                 th{
                     color: #9c150c;
+                    font-size: 1.1rem;
                 }
 
             /* CROSS-ICON */
