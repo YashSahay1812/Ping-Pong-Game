@@ -251,6 +251,12 @@ function moveToGame(){
             p2.x = canvas.width - 25;
             p2.y = (canvas.height/2) - 50;
 
+            // Resetting the speeds
+            ball.dx = 7;
+            ball.dy = 5;
+            p1.speed = 30;
+            p2.speed = 30;
+
             // Creating ball and paddles
             drawBall();
             drawP1();
@@ -434,12 +440,28 @@ function moveToGame(){
         
             //HIT LEFT PADDLE
             if(ball.x - ball.radius <= p1.x + p1.width && ball.y >= p1.y && ball.y <= p1.y + p1.height) {
+                
+                // Changing direction of ball
                 ball.dx = -ball.dx;
+
+                // Increasing speed of Ball and Paddles after each hit gradually
+                ball.dx *= 1.07;
+                ball.dy *= 1.07;
+                p1.speed *= 1.03;
+
             }
             
             //HIT RIGHT PADDLE
             if(ball.x + ball.radius >= p2.x && ball.y >= p2.y && ball.y <= p2.y + p2.height) {
+                
+                // Changing direction of ball
                 ball.dx = -ball.dx;
+
+                // Increasing speed of Ball and Paddles after each hit gradually
+                ball.dx *= 1.07;
+                ball.dy *= 1.07;
+                p1.speed *= 1.03;
+
             }
 
             //Updating ball's position
